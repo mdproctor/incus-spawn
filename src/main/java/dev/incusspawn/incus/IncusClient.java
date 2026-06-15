@@ -31,7 +31,9 @@ public class IncusClient {
             synchronized (this) {
                 if (!apiInitialized) {
                     api = IncusApi.tryConnect();
-                    apiInitialized = true;
+                    if (api != null) {
+                        apiInitialized = true;
+                    }
                 }
             }
         }
