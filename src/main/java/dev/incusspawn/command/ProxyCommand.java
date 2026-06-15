@@ -149,6 +149,12 @@ public class ProxyCommand extends BaseCommand {
 
             Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                 System.out.println("\nStopping proxy...");
+                var forceExit = new Thread(() -> {
+                    try { Thread.sleep(2000); } catch (InterruptedException e) { return; }
+                    Runtime.getRuntime().halt(0);
+                }, "force-exit");
+                forceExit.setDaemon(true);
+                forceExit.start();
                 proxy.stop();
             }));
 
